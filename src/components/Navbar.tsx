@@ -16,6 +16,7 @@ const NavbarStyled = styled.header`
   padding: 15px;
   background-color: #299B01;
   color: white;
+  
 `;
 
 const Logo = styled.div`
@@ -33,7 +34,8 @@ const ImgLogo = styled.img`
 
 const Login = styled.button`
   background-color: transparent;
-  color: white; //#299B01;
+  color: white; 
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,6 +55,7 @@ const Navbar = () => (
       <H1>MrDonald</H1>
     </Logo>
     <Login>
+
       <Sign src={sign} />
       Войти
     </Login>
