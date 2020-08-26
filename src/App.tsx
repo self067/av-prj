@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Menu from './components/Menu';
 import GlobalStyle from './components/GlobalStyle';
+import ModalItem from './components/ModalItem';
 
 function App() {
+  const [openItem, setOpenItem] = useState:<tItem>({} as tItem);
+
   return (
     <>
       <GlobalStyle />
-      <div className="App">
-        <Navbar />
-        <Menu />
-        {/* <h1>Hello</h1> */}
-      </div>
-
+      <Navbar />
+      <Menu setOpenItem={setOpenItem} />
+      <ModalItem openItem={openItem} setOpenItem={setOpenItem}/>
     </>
   );
 }

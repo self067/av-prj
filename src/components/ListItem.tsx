@@ -1,22 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-// import { tImg, tItemList } from '../type';
+import { tItem, tImg, tItemList, tFuncSetOpenItem, fModalItem, fOpenItem } from '../type';
 
-type tItem = {
-  name: string;
-  img: string;
-  id: number;
-  price: number;
-  toppings?: string[];
-};
-
-type tItemList = {
-  itemList: tItem[];
-}
-
-type tImg = {
-  img: string;
-}
 
 
 const List = styled.ul`
@@ -53,25 +38,21 @@ const Item = styled.li<tImg>`
     z-index: -1;
   }
   &:hover {
-    cursor  pointer;
+    cursor: pointer;
     box-shadow: inset 0 0 50px 30px rgba(0,0,0,1);
     &:after { 
       opacity: 0;
-      
     }
   }
-  
-  
-  
-  
 `;
 
-const ListItem:FC<tItemList> = ({ itemList }) => (
+const ListItem:FC<tItemList> = ({ itemList, setOpenItem }) => (
   <List>
     {itemList.map((item) => (
       <Item
         key={item.id}
         img={item.img}
+        onClick={() => setOpenItem(item)}
       >
         <p>{item.name}</p>
         <p>
