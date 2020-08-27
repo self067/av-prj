@@ -20,7 +20,7 @@ export type tImg = {
 }
 
 export type fModalItem = {
-  openItem: tItem;
+  openItem: tItem | null;
   setOpenItem: (arg0: tItem)=>void;
 };
 
@@ -29,6 +29,6 @@ export type tFuncSetOpenItem = {
 }
 
 export type fOpenItem = {
-  openItem: tItem;
+  openItem: tItem | null;
   setOpenItem: (arg0: tItem)=>void;
 }
