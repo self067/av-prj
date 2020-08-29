@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 // import { tItem, tImg, tItemList, tFuncSetOpenItem, fModalItem, fOpenItem } from '../type';
-import ButtonCheckout from './ButtonCheckout';
+import ButtonCheckout from '../Styles/ButtonCheckout';
 
 const Overlay = styled.div`
   display: flex;
@@ -53,10 +53,10 @@ const HeaderContent = styled.div`
 
 
 // const ModalItem:React.FC<fOpenItem> = ({openItem, setOpenItem}) => {
-const ModalItem = ({ openItem, setOpenItem }) => {
+const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
   console.log(openItem);
 
-  function closeModal(e) {
+  const closeModal = (e) => {
     // function closeModal(e:React.MouseEvent) {
     // console.log(e.target);
     if (e.target.id === 'overlay') {
@@ -64,7 +64,13 @@ const ModalItem = ({ openItem, setOpenItem }) => {
     }
   }
 
-  if (!openItem) return null;
+  const order = {
+    ...openItem
+  };
+  const addToOrder = () => {
+    setOrders([...orders, order]);
+    setOpenItem(null);
+  };
 
   return (
     <Overlay id="overlay" onClick={closeModal}>
@@ -80,7 +86,9 @@ const ModalItem = ({ openItem, setOpenItem }) => {
 
             </div>
           </HeaderContent>
-          <ButtonCheckout>Добавить</ButtonCheckout>
+          <ButtonCheckout
+            onClick={addToOrder}
+          >Добавить</ButtonCheckout>
 
         </Content>
 

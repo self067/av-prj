@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ButtonCheckout from './ButtonCheckout';
+import ButtonCheckout from '../Styles/ButtonCheckout';
 import OrderListItem from './OrderListItem';
 
 const OrderStyled = styled.section`
@@ -45,19 +45,24 @@ const TotalPrice = styled.span`
 
 `;
 
+const EmptyList = styled.p`
+  text-align: center;
+`;
 
-const Order = () => {
+const Order = ({ orders }) => {
   return (
     <>
       <OrderStyled>
         <OrderTitle>Ваш заказ</OrderTitle>
         <OrderContent>
-          <OrderList>
-            <OrderListItem />
-            <OrderListItem />
-            <OrderListItem />
-            <OrderListItem />
-          </OrderList>
+          { orders.length 
+            ? (
+              <OrderList>
+                { orders.map((order) =>  <OrderListItem order={order}/>) }
+              </OrderList>
+            )
+            : <EmptyList>Список заказав пуст</EmptyList>
+          }
         </OrderContent>
         <Total>
           <span>Итого</span>

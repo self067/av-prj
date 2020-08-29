@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import banner from '../images/banner.png';
+import banner from '../../images/banner.png';
 
 const Banner = styled.div`
   margin: 0;

@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import dbmenu from './DBMenu';
+import dbmenu from '../DBMenu';
 import ListItem from './ListItem';
-import Banner from './Banner';
-import { tFuncSetOpenItem, fModalItem, fOpenItem } from '../type';
+// import { tFuncSetOpenItem, fModalItem, fOpenItem } from '../type';
 
 const MenuStyled = styled.menu`
   background-color: #ccc;
@@ -15,7 +14,8 @@ const SectionMenu = styled.section`
   padding: 30px;
 `;
 
-const Menu:FC<tFuncSetOpenItem> = ({ setOpenItem }) => (
+// const Menu:FC<tFuncSetOpenItem> = ({ setOpenItem }) => (
+const Menu = ({ setOpenItem }) => (
   <MenuStyled>
     <SectionMenu>
       <h2>Бургеры</h2>

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { tItem, tImg, tItemList, tFuncSetOpenItem, fModalItem, fOpenItem } from '../type';
+import { tItem, tImg, tItemList, tFuncSetOpenItem, fModalItem, fOpenItem } from '../../type';
 
 
 
