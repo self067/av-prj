@@ -8,6 +8,7 @@ import { tFuncSetOpenItem, fModalItem, fOpenItem } from '../type';
 const MenuStyled = styled.menu`
   background-color: #ccc;
   margin-top: 80px;
+  margin-left: 380px;
 `;
 
 const SectionMenu = styled.section`
