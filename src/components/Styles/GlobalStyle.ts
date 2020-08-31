@@ -33,7 +33,15 @@ button {
   cursor: pointer;
 }
 input, button {
-  font-family: inherit;
+  font: inherit;
+}
+
+input[type='number'],
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button
+ {
+  -moz-appearance: none; /*textfield;*/
+  -webkit-appearance: none;
 }
 
 ul {

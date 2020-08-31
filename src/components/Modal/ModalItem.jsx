@@ -2,6 +2,9 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 // import { tItem, tImg, tItemList, tFuncSetOpenItem, fModalItem, fOpenItem } from '../type';
 import ButtonCheckout from '../Styles/ButtonCheckout';
+import CountItem from './CountItem';
+import useCount from '../Hooks/useCount';
+import { currencyFormat, totalPriceItems } from '../Functions/functions';
 
 const Overlay = styled.div`
   display: flex;
@@ -51,10 +54,14 @@ const HeaderContent = styled.div`
   font-family: 'Pacifico', cursive;
 `;
 
+const TotalPriceItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 // const ModalItem:React.FC<fOpenItem> = ({openItem, setOpenItem}) => {
 const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
-  console.log(openItem);
+  const counter = useCount();
 
   const closeModal = (e) => {
     // function closeModal(e:React.MouseEvent) {
@@ -65,8 +72,10 @@ const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
   }
 
   const order = {
-    ...openItem
+    ...openItem,
+    count: counter.count,
   };
+
   const addToOrder = () => {
     setOrders([...orders, order]);
     setOpenItem(null);
@@ -82,10 +91,17 @@ const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
               {openItem.name}
             </div>
             <div>
-              {openItem.price.toLocaleString('ru-RU',{ style: 'currency', currency: 'RUB' })}
+              {currencyFormat(openItem.price)}
 
             </div>
           </HeaderContent>
+          <CountItem {...counter} />
+          <TotalPriceItem>
+            <span>Цена</span>
+            <span>
+              {currencyFormat(totalPriceItems(order))}
+            </span>
+          </TotalPriceItem>
           <ButtonCheckout
             onClick={addToOrder}
           >Добавить</ButtonCheckout>

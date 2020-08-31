@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ButtonCheckout from '../Styles/ButtonCheckout';
 import OrderListItem from './OrderListItem';
+import { currencyFormat, totalPriceItems } from '../Functions/functions';
 
 const OrderStyled = styled.section`
   position: fixed;
@@ -50,6 +51,8 @@ const EmptyList = styled.p`
 `;
 
 const Order = ({ orders }) => {
+  const total = orders.reduce((result, order) => totalPriceItems(order) + result, 0);
+
   return (
     <>
       <OrderStyled>
@@ -67,7 +70,7 @@ const Order = ({ orders }) => {
         <Total>
           <span>Итого</span>
           <span>5</span>
-          <TotalPrice>5555 P</TotalPrice>
+          <TotalPrice>{currencyFormat(total)}</TotalPrice>
 
         </Total>
         <ButtonCheckout>Оформить</ButtonCheckout>
