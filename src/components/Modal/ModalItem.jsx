@@ -6,7 +6,9 @@ import CountItem from './CountItem';
 import useCount from '../Hooks/useCount';
 import { currencyFormat, totalPriceItems } from '../Functions/functions';
 import Toppings from './Toppings';
+import Choices from './Choices';
 import useToppings from '../Hooks/useToppings';
+import useChoices from '../Hooks/useChoices';
 
 const Overlay = styled.div`
   display: flex;
@@ -65,6 +67,7 @@ const TotalPriceItem = styled.div`
 const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
   const counter = useCount();
   const toppings = useToppings(openItem);
+  const choices = useChoices(openItem);
 
   const closeModal = (e) => {
     // function closeModal(e:React.MouseEvent) {
@@ -78,6 +81,7 @@ const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
     ...openItem,
     count: counter.count,
     topping: toppings.toppings,
+    choices: choices.choice,
   };
 
   const addToOrder = () => {
@@ -100,8 +104,8 @@ const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
             </div>
           </HeaderContent>
           <CountItem {...counter} />
-          {openItem.toppings && <Toppings {...toppings}/>}
-
+          {openItem.toppings && <Toppings {...toppings} />}
+          {openItem.choices && <Choices {...choices} openItem={openItem} />}
           <TotalPriceItem>
             <span>Цена</span>
             <span>
@@ -110,6 +114,7 @@ const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
           </TotalPriceItem>
           <ButtonCheckout
             onClick={addToOrder}
+            disabled={order.choices && !order.choice}
           >Добавить</ButtonCheckout>
 
         </Content>
