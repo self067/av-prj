@@ -24,12 +24,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 function App() {
-  
+
   const auth = useAuth(firebase.auth);
 
   const openItem = useOpenItem();
   const orders = useOrders();
-
 
   return (
     <>

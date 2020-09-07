@@ -54,7 +54,7 @@ const User = styled.div`
   text-align: center;
 `;
 
-const Logout = styled.span`
+const LogOut = styled.span`
   margin-right: 30px;
   font-size: 20px;
   font-weight: 700;
@@ -65,27 +65,30 @@ const Figure = styled.figure`
   margin: 0 30px;
 `;
 
-const Navbar:React.FC<any> = ({ authentication, login }) => (
+const Navbar:React.FC<any> = ({ authentication, logIn, logOut }) => (
   <NavbarStyled>
     <Logo>
       <ImgLogo src={logo} alt="logo" />
       <H1>MrDonald</H1>
     </Logo>
     {authentication
-      ? <User>
+      ? (
+        <User>
           <Figure>
             <Sign src={sign} alt={authentication.displayName}/>
             <figcaption>{authentication.displayName}</figcaption>
           </Figure>
-          <Logout title='Выйти'>Х</Logout>
+          <LogOut title="Выйти" onClick={logOut}>Х</LogOut>
         </User>
-    :
-      <Login onClick={login}>
-      <Sign src={sign} />
-      Войти
-      </Login>
+      )
+      : (
+        <Login onClick={logIn}>
+          <Sign src={sign} />
+          Войти
+        </Login>
+      )
 
-}
+    }
   </NavbarStyled>
 );
 
