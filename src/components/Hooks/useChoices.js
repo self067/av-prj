@@ -6,7 +6,7 @@ import { useState } from 'react';
 //   checked: false,
 // }))
 
-function  useChoices(openItem) {
+function useChoices(openItem) {
 
   const [choice, setChoice] = useState(); // ? getTopping(openItem.toppings): []);
 

@@ -8,3 +8,12 @@ export const totalPriceItems = order => {
   const priceTopping = (order.price * 0.1) * countTopping;
   return (order.price + priceTopping) * order.count;
 }
+
+export const projection = rules => {
+  const keys = Object.keys(rules);
+  console.log('keys',keys);
+  return obj => keys.reduce((newObject, key) => {
+    newObject[key] = rules[key].reduce((val, fn, i) => (i ? fn(val) : obj[fn]), null)
+    return newObject;
+  }, {});
+};

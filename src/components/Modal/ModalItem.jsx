@@ -82,7 +82,7 @@ const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
     ...openItem,
     count: counter.count,
     topping: toppings.toppings,
-    choices: choices.choice,
+    choice: choices.choice,
   };
 
   const editOrder = () => {
@@ -120,10 +120,12 @@ const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
               {currencyFormat(totalPriceItems(order))}
             </span>
           </TotalPriceItem>
+          {console.log(order)}
           <ButtonCheckout
             onClick={isEdit ? editOrder : addToOrder}
-            disabled={order.choices && !order.choice}
-          >{isEdit ? 'Изменить' : 'Добавить'}</ButtonCheckout>
+            disabled={ order.choices && !order.choice}
+          >{isEdit ? 'Изменить' : 'Добавить'}
+          </ButtonCheckout>
 
         </Content>
 

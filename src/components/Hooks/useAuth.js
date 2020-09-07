@@ -11,14 +11,13 @@ function useAuth(authFirebase) {
   const logOut = () => auth.signOut()
     .then()
     .catch(err => console.error(err));
-  
 
   useEffect(() => {
 
     auth.onAuthStateChanged( user => {
       console.log(user);
       // if(user) {
-        setAuthentication(user);
+      setAuthentication(user);
       // }
     });
   }, [authentication]);

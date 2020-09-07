@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ButtonCheckout from '../Styles/ButtonCheckout';
 import OrderListItem from './OrderListItem';
-import { currencyFormat, totalPriceItems } from '../Functions/functions';
+import { currencyFormat, totalPriceItems, projection } from '../Functions/functions';
 
 const OrderStyled = styled.section`
   position: fixed;
@@ -48,7 +48,28 @@ const EmptyList = styled.p`
   text-align: center;
 `;
 
-const Order = ({ orders, setOrders, setOpenItem }) => {
+const rulesData = {
+  name: ['name'],
+  price: ['price'],
+  count: ['count'],
+  topping: ['topping', arr => arr.filter( obj => obj.checked).map( obj => obj.name)],
+  choice: ['choice', item => item ? item : 'no choices'],
+};
+
+const Order = ({ orders, setOrders, setOpenItem, authentication, logIn, firebaseDB }) => {
+
+  const db = firebaseDB();
+  const sendOrder = () => {
+    const newOrder = orders.map(projection(rulesData));
+    console.log(newOrder);
+    db.ref('orders').push().set({
+      clientName: authentication.displayName,
+      email: authentication.email,
+      order: newOrder,
+    });
+
+  }
+
   const deleteItem = (index) => {
     // const newOrders = orders.filter((item,i)=> index !== i);;
     const newOrders = [...orders];
@@ -88,7 +109,13 @@ const Order = ({ orders, setOrders, setOpenItem }) => {
           <TotalPrice>{currencyFormat(total)}</TotalPrice>
 
         </Total>
-        <ButtonCheckout>Оформить</ButtonCheckout>
+        <ButtonCheckout onClick={() => {
+          if( authentication) {
+            sendOrder( orders);
+          } else {
+            logIn();
+          }
+        }}>Оформить</ButtonCheckout>
 
       </OrderStyled>
     </>
