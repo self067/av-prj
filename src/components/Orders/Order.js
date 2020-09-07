@@ -38,37 +38,49 @@ const Total = styled.div`
   }
 `;
 
-
 const TotalPrice = styled.span`
   text-align: right;
   min-width: 65px;
   margin-left: 20px;
-
 `;
 
 const EmptyList = styled.p`
   text-align: center;
 `;
 
-const Order = ({ orders }) => {
+const Order = ({ orders, setOrders, setOpenItem }) => {
+  const deleteItem = (index) => {
+    // const newOrders = orders.filter((item,i)=> index !== i);;
+    const newOrders = [...orders];
+    newOrders.splice(index, 1);
+
+    setOrders(newOrders);
+  };
+
   const total = orders.reduce((result, order) => totalPriceItems(order) + result, 0);
 
   const totalCounter = orders.reduce((result, order) => order.count + result, 0);
-
 
   return (
     <>
       <OrderStyled>
         <OrderTitle>Ваш заказ</OrderTitle>
         <OrderContent>
-          { orders.length 
+          { orders.length
             ? (
               <OrderList>
-                { orders.map((order) =>  <OrderListItem order={order}/>) }
+                { orders.map((order, index) => (
+                  <OrderListItem
+                    key={index}
+                    order={order}
+                    deleteItem={deleteItem}
+                    index={index}
+                    setOpenItem={setOpenItem}
+                  />
+                ))}
               </OrderList>
             )
-            : <EmptyList>Список заказав пуст</EmptyList>
-          }
+            : <EmptyList>Список заказав пуст</EmptyList>}
         </OrderContent>
         <Total>
           <span>Итого</span>
@@ -80,7 +92,7 @@ const Order = ({ orders }) => {
 
       </OrderStyled>
     </>
-  )
-}
+  );
+};
 
 export default Order;

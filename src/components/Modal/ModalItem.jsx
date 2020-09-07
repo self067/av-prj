@@ -68,6 +68,7 @@ const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
   const counter = useCount();
   const toppings = useToppings(openItem);
   const choices = useChoices(openItem);
+  const isEdit = openItem.index > -1;
 
   const closeModal = (e) => {
     // function closeModal(e:React.MouseEvent) {
@@ -83,6 +84,12 @@ const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
     topping: toppings.toppings,
     choices: choices.choice,
   };
+
+  const editOrder = () => {
+    const newOrders = [...order];
+    newOrders[openItem.index] = order;
+    setOrders(newOrders);
+  }
 
   const addToOrder = () => {
     setOrders([...orders, order]);
@@ -113,7 +120,7 @@ const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
             </span>
           </TotalPriceItem>
           <ButtonCheckout
-            onClick={addToOrder}
+            onClick={isEdit ? editOrder : addToOrder}
             disabled={order.choices && !order.choice}
           >Добавить</ButtonCheckout>
 
