@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import dbmenu from '../DBMenu';
 import ListItem from './ListItem';
-import useFetch from '../Hooks/useFetch';
+// import useFetch from '../Hooks/useFetch';
 // import { tFuncSetOpenItem, fModalItem, fOpenItem } from '../type';
 
 const MenuStyled = styled.menu`
@@ -16,9 +16,9 @@ const SectionMenu = styled.section`
 `;
 
 // const Menu:FC<tFuncSetOpenItem> = ({ setOpenItem }) => (
-const Menu = ({ setOpenItem }) => {
-  const res = useFetch();
-  const dbMenu = res.response;
+const Menu = ({ setOpenItem, dbMenu }) => {
+  // const res = useFetch();
+  // const dbMenu = res.response;
   return (
     <MenuStyled>
       {/* <Banner /> */}
@@ -41,8 +41,8 @@ const Menu = ({ setOpenItem }) => {
             </SectionMenu>
           </>
         )
-        : res.error
-          ? <div>Loading Error...</div>
+        // : res.error
+        //   ? <div>Loading Error...</div>
           : <div>Loading...</div>}
     </MenuStyled>
   );
