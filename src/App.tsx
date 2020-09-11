@@ -13,6 +13,10 @@ import useOrders from './components/Hooks/useOrders';
 import useAuth from './components/Hooks/useAuth';
 import { useTitle } from './components/Hooks/useTitle';
 import useDB from './components/Hooks/useDB';
+import OrderConfirm from './components/Orders/OrderConfirm';
+
+import { useOrderConfirm } from 
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyABY5p1uUpG5QlwWEOCYFSv2YZuPS_IbLw",
@@ -31,6 +35,7 @@ function App() {
   const auth = useAuth(firebase.auth);
   const openItem = useOpenItem();
   const orders = useOrders();
+  const orderConfirm = useOrderConfirm();
   const database = firebase.database();
   useTitle(openItem.openItem);
   const dbMenu = useDB(database);
@@ -43,10 +48,15 @@ function App() {
         {...orders}
         {...openItem}
         {...auth}
-        database={database}
+        
+        {...orderConfirm}
       />
       <Menu {...openItem} dbMenu={dbMenu}/>
       { openItem.openItem && <ModalItem {...openItem} {...orders} /> }
+      {orderConfirm.openOrderConfirm && 
+        <OrderConfirm {...orders} {...auth} {...orderConfirm}
+        database={database}
+      }
     </>
   );
 }

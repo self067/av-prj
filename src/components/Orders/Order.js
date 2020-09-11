@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import ButtonCheckout from '../Styles/ButtonCheckout';
 import OrderListItem from './OrderListItem';
-import { currencyFormat, totalPriceItems, projection } from '../Functions/functions';
+import { currencyFormat, totalPriceItems } from '../Functions/functions';
+
 
 const OrderStyled = styled.section`
   position: fixed;
@@ -17,7 +18,7 @@ const OrderStyled = styled.section`
   padding: 20px;
 `;
 
-const OrderTitle = styled.h2`
+export const OrderTitle = styled.h2`
   text-align: center;
   margin-bottom: 30px;
 `;
@@ -30,7 +31,7 @@ const OrderList = styled.ul`
 
 `;
 
-const Total = styled.div`
+export const Total = styled.div`
   display: flex;
   margin: 0 35px 30px;
   & span:first-child {
@@ -38,7 +39,7 @@ const Total = styled.div`
   }
 `;
 
-const TotalPrice = styled.span`
+export const TotalPrice = styled.span`
   text-align: right;
   min-width: 65px;
   margin-left: 20px;
@@ -48,27 +49,10 @@ const EmptyList = styled.p`
   text-align: center;
 `;
 
-const rulesData = {
-  name: ['name'],
-  price: ['price'],
-  count: ['count'],
-  topping: ['topping', arr => arr.filter( obj => obj.checked).map( obj => obj.name),
-    arr => arr.length ? arr : 'no topping'],
-  choice: ['choice', item => item ? item : 'no choices'],
-};
-
-const Order = ({ orders, setOrders, setOpenItem, authentication, logIn, database }) => {
+const Order = ({ orders, setOrders, setOpenItem, authentication, 
+  logIn, database, setOpenOrderConfirm 
+}) => {
   // const db = firebaseDB();
-  const sendOrder = () => {
-    const newOrder = orders.map(projection(rulesData));
-    console.log(newOrder);
-    database.ref('orders').push().set({
-      clientName: authentication.displayName,
-      email: authentication.email,
-      order: newOrder,
-    });
-    setOrders([]);
-  }
 
   const deleteItem = (index) => {
     // const newOrders = orders.filter((item,i)=> index !== i);;
@@ -111,7 +95,8 @@ const Order = ({ orders, setOrders, setOpenItem, authentication, logIn, database
         </Total>
         <ButtonCheckout onClick={() => {
           if( authentication) {
-            sendOrder( orders);
+            setOpenOrderConfirm(true);
+            // sendOrder( orders);
           } else {
             logIn();
           }
