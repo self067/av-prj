@@ -4,7 +4,7 @@ function useAuth(authFirebase) {
   const [authentication, setAuthentication] = useState(null);
 
   const auth = authFirebase();
-  console.log('auth', auth);
+  // console.log('auth', auth);
   const provider = new authFirebase.GoogleAuthProvider();
 
   const logIn = () => auth.signInWithPopup(provider);
@@ -15,12 +15,12 @@ function useAuth(authFirebase) {
   useEffect(() => {
 
     auth.onAuthStateChanged( user => {
-      console.log(user);
+      // console.log(user);
       // if(user) {
       setAuthentication(user);
       // }
     });
-  }, [authentication]);
+  }, [auth,authentication]);
 
   return { authentication, logIn, logOut };
 }

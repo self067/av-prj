@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import dbmenu from '../DBMenu';
 import ListItem from './ListItem';
+import useFetch from '../Hooks/useFetch';
 // import { tFuncSetOpenItem, fModalItem, fOpenItem } from '../type';
 
 const MenuStyled = styled.menu`
@@ -15,23 +16,36 @@ const SectionMenu = styled.section`
 `;
 
 // const Menu:FC<tFuncSetOpenItem> = ({ setOpenItem }) => (
-const Menu = ({ setOpenItem }) => (
-  <MenuStyled>
-    <SectionMenu>
-      <h2>Бургеры</h2>
-      <ListItem
-        itemList={dbmenu.burger}
-        setOpenItem={setOpenItem}
-      />
-    </SectionMenu>
-    <SectionMenu>
-      <h2>Закуски и напитки</h2>
-      <ListItem
-        itemList={dbmenu.other}
-        setOpenItem={setOpenItem}
-      />
-    </SectionMenu>
-  </MenuStyled>
-);
+const Menu = ({ setOpenItem }) => {
+  const res = useFetch();
+  const dbMenu = res.response;
+  return (
+    <MenuStyled>
+      {/* <Banner /> */}
+      { dbMenu
+        ? (
+          <>
+            <SectionMenu>
+              <h2>Бургеры</h2>
+              <ListItem
+                itemList={dbmenu.burger}
+                setOpenItem={setOpenItem}
+              />
+            </SectionMenu>
+            <SectionMenu>
+              <h2>Закуски и напитки</h2>
+              <ListItem
+                itemList={dbmenu.other}
+                setOpenItem={setOpenItem}
+              />
+            </SectionMenu>
+          </>
+        )
+        : res.error
+          ? <div>Loading Error...</div>
+          : <div>Loading...</div>}
+    </MenuStyled>
+  );
+};
 
 export default Menu;

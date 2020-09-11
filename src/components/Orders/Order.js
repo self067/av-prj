@@ -52,13 +52,15 @@ const rulesData = {
   name: ['name'],
   price: ['price'],
   count: ['count'],
-  topping: ['topping', arr => arr.filter( obj => obj.checked).map( obj => obj.name)],
+  topping: ['topping', arr => arr.filter( obj => obj.checked).map( obj => obj.name),
+    arr => arr.length ? arr : 'no topping'],
   choice: ['choice', item => item ? item : 'no choices'],
 };
 
 const Order = ({ orders, setOrders, setOpenItem, authentication, logIn, firebaseDB }) => {
 
   const db = firebaseDB();
+
   const sendOrder = () => {
     const newOrder = orders.map(projection(rulesData));
     console.log(newOrder);
@@ -67,7 +69,7 @@ const Order = ({ orders, setOrders, setOpenItem, authentication, logIn, firebase
       email: authentication.email,
       order: newOrder,
     });
-
+    setOrders([]);
   }
 
   const deleteItem = (index) => {
