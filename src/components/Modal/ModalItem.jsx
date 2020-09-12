@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import styled from 'styled-components';
 // import { tItem, tImg, tItemList, tFuncSetOpenItem, fModalItem, fOpenItem } from '../type';
 import ButtonCheckout from '../Styles/ButtonCheckout';
@@ -9,6 +9,7 @@ import Toppings from './Toppings';
 import Choices from './Choices';
 import useToppings from '../Hooks/useToppings';
 import useChoices from '../Hooks/useChoices';
+import Context from '../Functions/context';
 
 export const Overlay = styled.div`
   display: flex;
@@ -64,7 +65,13 @@ const TotalPriceItem = styled.div`
 `;
 
 // const ModalItem:React.FC<fOpenItem> = ({openItem, setOpenItem}) => {
-const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
+const ModalItem = () => {
+
+  const {
+    orders: {orders, setOrders},
+    openItem: {openItem, setOpenItem}
+  } = useContext(Context);
+
   const counter = useCount(openItem.count);
   const toppings = useToppings(openItem);
   const choices = useChoices(openItem);

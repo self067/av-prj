@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import trashImg from '../../images/trash.svg';
 import { currencyFormat, totalPriceItems } from '../Functions/functions';
+import Context from '../Functions/context';
 
 const OrderItemStyled = styled.li`
   display: flex;
@@ -40,7 +41,9 @@ const Topping = styled.div`
   width: 100%;
 `;
 
-const OrderListItem = ({ order, index, deleteItem, setOpenItem }) => {
+const OrderListItem = ({ order, index, deleteItem }) => {
+  const {openItem: { setOpenItem}} = useContext(Context);
+
   const topping = order.topping.filter( item => item.checked)
     .map(item => item.name)
     .join(', ');

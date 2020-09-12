@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import styled from 'styled-components';
 import { tItem, tImg, tItemList, tFuncSetOpenItem, fModalItem, fOpenItem } from '../../type';
-
+import Context from '../Functions/context';
 
 
 const List = styled.ul`
@@ -46,22 +46,26 @@ const Item = styled.li<tImg>`
   }
 `;
 
-const ListItem:FC<tItemList> = ({ itemList, setOpenItem }) => (
-  <List>
-    {itemList.map((item) => (
-      <Item
-        key={item.id}
-        img={item.img}
-        onClick={() => setOpenItem(item)}
-      >
-        <p>{item.name}</p>
-        <p>
-          {item.price.toLocaleString('ru-RU',
-            { style: 'currency', currency: 'RUB' })}
-        </p>
-      </Item>
-    ))}
-  </List>
-);
+const ListItem:FC<tItemList> = ({ itemList }) => {
+  const { openItem: { setOpenItem }} = useContext(Context);
+  return (
+    <List>
+      {itemList.map((item) => (
+        <Item
+          key={item.id}
+          img={item.img}
+          onClick={() => setOpenItem(item)}
+        >
+          <p>{item.name}</p>
+          <p>
+            {item.price.toLocaleString('ru-RU',
+              { style: 'currency', currency: 'RUB' })}
+          </p>
+        </Item>
+      ))}
+    </List>
+  );
+}
+;
 
 export default ListItem;

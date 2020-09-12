@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import ButtonCheckout from '../Styles/ButtonCheckout';
 import OrderListItem from './OrderListItem';
 import { currencyFormat, totalPriceItems } from '../Functions/functions';
-
+import Context from '../Functions/context';
 
 const OrderStyled = styled.section`
   position: fixed;
@@ -49,10 +49,14 @@ const EmptyList = styled.p`
   text-align: center;
 `;
 
-const Order = ({ orders, setOrders, setOpenItem, authentication, 
-  logIn, database, setOpenOrderConfirm 
-}) => {
+const Order = () => {
   // const db = firebaseDB();
+  const {
+    auth: { authentication, logIn },
+    orders: { orders, setOrders },
+    // openItem: { setOpenItem },
+    orderConfirm: { setOpenOrderConfirm }
+  } = useContext(Context);
 
   const deleteItem = (index) => {
     // const newOrders = orders.filter((item,i)=> index !== i);;
@@ -80,28 +84,37 @@ const Order = ({ orders, setOrders, setOpenItem, authentication,
                     order={order}
                     deleteItem={deleteItem}
                     index={index}
-                    setOpenItem={setOpenItem}
+                    // setOpenItem={setOpenItem}
                   />
                 ))}
               </OrderList>
             )
             : <EmptyList>Список заказав пуст</EmptyList>}
         </OrderContent>
-        <Total>
-          <span>Итого</span>
-          <span>{totalCounter}</span>
-          <TotalPrice>{currencyFormat(total)}</TotalPrice>
+        { orders.length
+          ? (
+            <>
+              <Total>
+                <span>Итого</span>
+                <span>{totalCounter}</span>
+                <TotalPrice>{currencyFormat(total)}</TotalPrice>
 
-        </Total>
-        <ButtonCheckout onClick={() => {
-          if( authentication) {
-            setOpenOrderConfirm(true);
-            // sendOrder( orders);
-          } else {
-            logIn();
-          }
-        }}>Оформить</ButtonCheckout>
+              </Total>
+              <ButtonCheckout onClick={() => {
+                if (authentication) {
+                  setOpenOrderConfirm(true);
+                  // sendOrder( orders);
+                } else {
+                  logIn();
+                }
+              }}
+              >
+                Оформить
+              </ButtonCheckout>
 
+            </>
+          )
+          : null}
       </OrderStyled>
     </>
   );

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import logo from '../../images/logo.svg';
 import sign from '../../images/sign.svg';
+import Context from '../Functions/context';
 
 const NavbarStyled = styled.header`
   position: fixed;
@@ -65,7 +66,10 @@ const Figure = styled.figure`
   margin: 0 30px;
 `;
 
-const Navbar:React.FC<any> = ({ authentication, logIn, logOut }) => (
+const Navbar:React.FC<any> = () => {
+  const { auth: { authentication, logIn, logOut } } = useContext(Context);
+  
+  return (
   <NavbarStyled>
     <Logo>
       <ImgLogo src={logo} alt="logo" />
@@ -90,6 +94,6 @@ const Navbar:React.FC<any> = ({ authentication, logIn, logOut }) => (
 
     }
   </NavbarStyled>
-);
+)};
 
 export default Navbar;
